@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=LogicGate
+Name[ja]=ロジックゲート
+GenericName=Circuit Puzzle
+GenericName[ja]=回路パズル
+Comment=Learn electric circuits and logic gates by drag and drop (ages 10+)
+Comment[ja]=ドラッグ＆ドロップで電気回路とロジックゲートを学ぼう（10才以上）
+Exec=logicgate
+Icon=logicgate
+Terminal=false
+Categories=Game;LogicGame;Education;Electronics;
+Keywords=circuit;logic;gate;electronics;puzzle;kids;science;
