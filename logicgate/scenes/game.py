@@ -101,7 +101,7 @@ class GameScene(Scene):
         self.state = "play"
         self.app.audio.play("start")
         if self.level_no == 1:
-            self.toast.show(i18n.t("drag_hint"), art.ACCENT, 7)
+            self.toast.show(i18n.t("drag_hint_touch" if self.app.touch else "drag_hint"), art.ACCENT, 7)
 
     def after_complete(self):
         self.app.audio.stop_loops()
@@ -120,7 +120,10 @@ class GameScene(Scene):
         self.time_left = max(0.0, self.time_left - PENALTY)
         kind = verdict.kind
         part = i18n.part_name(kind) if isinstance(kind, str) and kind in i18n.PART_NAMES else ""
-        msg = i18n.t("fail_" + verdict.code, part=part, n=kind if isinstance(kind, int) else "")
+        code = "fail_" + verdict.code
+        if self.app.touch and code + "_touch" in i18n.STRINGS:
+            code += "_touch"
+        msg = i18n.t(code, part=part, n=kind if isinstance(kind, int) else "")
         self.toast.show(f"{msg}  ({i18n.t('penalty')})", art.RED, 6)
         if verdict.code == "short":
             self.view.sparks(self.view.slot_center(self._battery()), (255, 200, 80), 50)
@@ -298,8 +301,14 @@ class GameScene(Scene):
                 self._resim()
             elif self.drag:
                 target = self.view.slot_at(event.pos)
+                tapped = (self.app.touch and self.drag["kind"] == "led" and target is self.drag["from"]
+                          and math.dist(event.pos, self.drag.get("start", event.pos)) < 12)
                 if self._fits(self.drag["kind"], target):
                     self._place(target, self.drag["kind"])
+                    if tapped:  # touch screens have no right-click: a tap on a placed LED flips it
+                        target.forward = not self.drag.get("forward", target.forward)
+                        self.app.audio.play("flip")
+                        self._resim()
                 elif self.drag["from"] is not None:
                     self.app.audio.play("remove")
                 self.drag = None
@@ -316,7 +325,7 @@ class GameScene(Scene):
                 self._resim()
 
     def _lift(self, s, pos):
-        self.drag = {"kind": s.kind, "from": s, "pos": pos}
+        self.drag = {"kind": s.kind, "from": s, "pos": pos, "start": pos, "forward": getattr(s, "forward", True)}
         s.kind = None
         self.app.audio.play("pickup")
         self._resim()
@@ -389,7 +398,7 @@ class GameScene(Scene):
                 key = "stage_" + self.level.stage
                 art.text(surface, f"{i18n.t('level')} {self.level_no}  ·  {i18n.t(key)}",
                          (BOARD_RECT.centerx, BOARD_RECT.bottom + 22), 16, art.TEXT_DIM, anchor="center")
-                art.text(surface, i18n.t("drag_hint"), (BOARD_RECT.centerx, BOARD_RECT.bottom + 50), 14,
+                art.text(surface, i18n.t("drag_hint_touch" if self.app.touch else "drag_hint"), (BOARD_RECT.centerx, BOARD_RECT.bottom + 50), 14,
                          art.TEXT_DIM, anchor="center")
             if self.drag:
                 self._drag_image(surface)

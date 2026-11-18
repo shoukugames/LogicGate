@@ -3,6 +3,7 @@ import os
 
 import pygame
 
+from . import WEB
 from .paths import asset
 
 MUSIC = {"title": "bgm_title.wav", "game": "bgm_game.wav"}
@@ -54,7 +55,10 @@ class Audio:
         if not self.ok:
             return
         if not self.settings["bgm"]:
-            pygame.mixer.music.fadeout(400)
+            if WEB:  # a new track waits for a fade-out, which can't finish while the page waits
+                pygame.mixer.music.stop()
+            else:
+                pygame.mixer.music.fadeout(400)
             self.current = None
             return
         if which == self.current:

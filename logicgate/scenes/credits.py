@@ -3,7 +3,7 @@ import webbrowser
 
 import pygame
 
-from .. import RELEASE_DATE, __version__, art, i18n
+from .. import WEB, RELEASE_DATE, __version__, art, i18n
 from ..app import Scene
 from ..paths import root
 from ..ui import Button, ButtonGroup
@@ -35,7 +35,11 @@ class CreditsScene(Scene):
             for url, rect in self.links.items():
                 if rect.collidepoint(event.pos):
                     try:
-                        webbrowser.open(url)
+                        if WEB:
+                            import platform  # pygbag's bridge to the page
+                            platform.window.open(url, "_blank")
+                        else:
+                            webbrowser.open(url)
                     except Exception:  # noqa: BLE001 - no browser is fine
                         pass
         self.buttons.handle(event, self.app.audio)

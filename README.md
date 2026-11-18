@@ -62,6 +62,22 @@ what you built.
 | Pause | `Esc` or **Menu** |
 | Full screen | `F11` |
 
+## Play in the browser
+
+LogicGate also runs in a web browser, on computers, phones and tablets, with nothing to
+install: <https://shoukugames.org/play/logicgate/> (test page). On touch screens, drag parts
+with your finger, tap a placed LED to flip it, and drag a part off the board to remove it.
+Settings, scores and progress are saved in the browser.
+
+```bash
+python3 -m pip install pygame pygbag     # plus ffmpeg on PATH (or FFMPEG=/path/to/ffmpeg)
+python3 tools/build_web.py               # -> build/web/: upload the folder as-is
+```
+
+The build uses [pygbag](https://pygame-web.github.io/), which also converts the sounds to OGG.
+`main.py` is the web entry point; the browser-only parts switch on only in the browser.
+The `.apk` file pygbag writes is its bundle of game files, not an Android app.
+
 ## Install
 
 - **Windows:** run `LogicGate-v0.1.0.exe`. Nothing to install.

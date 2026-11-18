@@ -60,6 +60,9 @@ STRINGS = {
     "stage_description": ("Description only", "説明文のみ"),
     "drag_hint": ("Drag parts from the left onto the dashed sockets. Right-click a part to flip or remove it.",
                   "左のパーツを点線のソケットへドラッグしよう。右クリックで向きを変える／外す。"),
+    # Touch screens have no right-click: tap an LED to flip it, drag a part off the board to remove it.
+    "drag_hint_touch": ("Drag parts from the left onto the dashed sockets. Tap an LED to flip it; drag a part off to remove it.",
+                        "左のパーツを点線のソケットへドラッグしよう。LEDはタップで向きを変える。外すときはボードの外へドラッグ。"),
     "tutorial": ("1. Drag a part from the left onto a socket\n2. Fill every socket the circuit needs\n"
                  "3. Press Test Circuit before time runs out!",
                  "1. 左のパーツをソケットへドラッグ\n2. 回路に必要なソケットをうめる\n3. 時間内に「回路をテスト」を押そう！"),
@@ -70,6 +73,8 @@ STRINGS = {
                     "パチッ！LEDが焼けちゃった。LEDには電流を弱める抵抗が必要だよ。"),
     "fail_led_backwards": ("The LED is backwards! LEDs only work one way. Right-click it to flip it.",
                            "LEDの向きが逆だよ！LEDは一方向にしか電気を通さない。右クリックで向きを変えよう。"),
+    "fail_led_backwards_touch": ("The LED is backwards! LEDs only work one way. Tap it to flip it.",
+                                 "LEDの向きが逆だよ！LEDは一方向にしか電気を通さない。タップで向きを変えよう。"),
     "fail_switch_count": ("This circuit needs exactly {n} switch(es) to control it.",
                           "この回路にはスイッチがちょうど{n}個必要だよ。"),
     "fail_missing_output": ("Something is missing: the circuit needs a {part}.", "{part}が足りないよ。"),

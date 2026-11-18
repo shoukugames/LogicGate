@@ -3,7 +3,7 @@ import math
 
 import pygame
 
-from .. import __version__, art, i18n, storage
+from .. import WEB, __version__, art, i18n, storage
 from ..app import Scene
 from ..levels import DIFFICULTIES
 from ..ui import Button, ButtonGroup
@@ -28,7 +28,7 @@ class TitleScene(Scene):
         self.buttons.add(Button((x, y, w, 70), lambda: i18n.t("play"), self.play, color=(30, 160, 90),
                                 size=32, sub=lambda: _other("play")))
         items = [("intro", self.intro, (52, 96, 190)), ("parents", self.parents, (110, 80, 180)),
-                 ("credits", self.credits, (52, 96, 190)), ("quit", self.quit, (120, 60, 80))]
+                 ("credits", self.credits, (52, 96, 190))] + ([] if WEB else [("quit", self.quit, (120, 60, 80))])
         y += 84
         for key, action, color in items:
             self.buttons.add(Button((x, y, w, 52), (lambda k=key: i18n.t(k)), action, color=color, size=22,
@@ -92,7 +92,7 @@ class TitleScene(Scene):
         if event.type == pygame.KEYDOWN:
             if event.key in (pygame.K_RETURN, pygame.K_SPACE):
                 self.play()
-            elif event.key == pygame.K_ESCAPE:
+            elif event.key == pygame.K_ESCAPE and not WEB:
                 self.quit()
         self.buttons.handle(event, self.app.audio)
 
