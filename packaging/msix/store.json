@@ -1,0 +1,12 @@
+{
+ "_note": "Replace identity_name, publisher and publisher_display_name with the values from Partner Center (Product management -> Product identity) before uploading to the Microsoft Store.",
+ "identity_name": "ShoukuGames.LogicGate",
+ "publisher": "CN=ShoukuGamesPlaceholder",
+ "publisher_display_name": "Shouku Games",
+ "display_name": "LogicGate",
+ "description": "A circuit-building puzzle game about electricity and logic. Drag real-looking parts onto the board and finish each circuit before the 120-second timer runs out.",
+ "file_name": "LogicGate",
+ "exe_name": "LogicGate.exe",
+ "alias": "shouku-logicgate.exe",
+ "device_capabilities": []
+}
